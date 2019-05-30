@@ -5,6 +5,7 @@ import kafka.zk.AdminZkClient;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.kafka.clients.ClientUtils;
 import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.server.policy.CreateTopicPolicy;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -20,9 +21,13 @@ public class TopicManager {
         ClientUtils clientUtils;
 
         AdminClient adminClient = AdminClient.create(props);
+        ListTopicsResult listTopicsResult = adminClient.listTopics();
+        //adminClient.deleteTopics(Arrays.asList("stock-quotations"));
+        //adminClient.describeTopics(Arrays.asList("stock-quotation"));
         CreateTopicsResult createTopicsResult = adminClient.createTopics(Arrays.asList(new NewTopic(topic, partition, (short)replica)));
 
         try {
+            listTopicsResult.listings().get();
             createTopicsResult.all().get();
         } catch (Exception e) {
             System.out.println("create topic failed!");
@@ -35,6 +40,7 @@ public class TopicManager {
     public static Properties initConfig() {
         Properties props = new Properties();
         props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.80.129:9092");
+        props.put("create.topic.policy.class.name", CreateTopicPolicy.class.getName());
 
         return  props;
     }
