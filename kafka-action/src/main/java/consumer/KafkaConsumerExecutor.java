@@ -7,7 +7,7 @@ import java.util.Properties;
 public class KafkaConsumerExecutor {
     private static Properties initConfig() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
+        props.put("bootstrap.servers", "192.168.80.129:9092");
         props.put("group.id", "test");
         props.put("client.id", "test");
         props.put("key.deserialiser", StringDeserializer.class.getName());

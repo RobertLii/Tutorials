@@ -1,35 +1,47 @@
 package topic;
 
 
-
-import kafka.admin.AdminUtils;
-import kafka.utils.ZkUtils;
 import kafka.zk.AdminZkClient;
 import org.I0Itec.zkclient.ZkClient;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.zookeeper.ZKUtil;
+import org.apache.kafka.clients.ClientUtils;
+import org.apache.kafka.clients.admin.*;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 public class TopicManager {
-    private static final String ZK_CONNECT = "localhost:2181";
+    private static final String ZK_CONNECT = "192.168.80.129:2181";
     private static final int SESSION_TIMEOUT = 10000;
     private static final int CONNECT_TIMEOUT = 10000;
     public static void createTopic(String topic, int partition, int replica, Properties props) {
-        ZkClient zkClient = new ZkClient(ZK_CONNECT, SESSION_TIMEOUT, CONNECT_TIMEOUT);
-        ZKUtil zkUtil = null;
+        //ZkClient zkClient = new ZkClient(ZK_CONNECT, SESSION_TIMEOUT, CONNECT_TIMEOUT);
         AdminZkClient adminZkClient;
-        AdminClient adminClient;
+        KafkaAdminClient kafkaAdminClient;
+        ClientUtils clientUtils;
+
+        AdminClient adminClient = AdminClient.create(props);
+        CreateTopicsResult createTopicsResult = adminClient.createTopics(Arrays.asList(new NewTopic(topic, partition, (short)replica)));
+
         try {
-//            AdminUtils.createTopic();
-//            if (!AdminUtils.topicExists(zkUtils, topic)) {
-//                AdminUtils.createTopic(zkUtils, topic, partition, replica, props, AdminUtils.createTopic$default$6());
-//            }
+            createTopicsResult.all().get();
         } catch (Exception e) {
             System.out.println("create topic failed!");
             e.printStackTrace();
         } finally {
             //zkUtils.close();
         }
+    }
+
+    public static Properties initConfig() {
+        Properties props = new Properties();
+        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.80.129:9092");
+
+        return  props;
+    }
+
+    public static void main(String[] args) {
+        Properties props = initConfig();
+
+        createTopic("stock-quotation", 1, 1, props);
     }
 }
