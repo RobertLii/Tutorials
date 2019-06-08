@@ -1,10 +1,8 @@
 package producer;
 
 import entity.StockQuotationInfo;
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.text.DecimalFormat;
@@ -16,13 +14,13 @@ import java.util.concurrent.Executors;
 public class MultiThreadProducer {
     //private static final Logger =
     private static final int MSG_SIZE = 100;
-    private static final String TOPIC = "stock-quotation";
+    private static final String TEST_TOPIC = "test";
     private static final String BROKER_LIST = "localhost:9092";
     private static KafkaProducer<String, String> producer = null;
 
     static {
         Properties configs = initConfig();
-        producer = new KafkaProducer<String, String>(configs);
+        producer = new KafkaProducer<>(configs);
     }
 
     public static Properties initConfig() {
@@ -63,7 +61,7 @@ public class MultiThreadProducer {
             int num = 0;
             for (int i = 0; i < MSG_SIZE; i++) {
                 quotationInfo = createStockQuotationInfo();
-                record = new ProducerRecord<>(TOPIC, null, quotationInfo.getTradeTime(), quotationInfo.getStockCode(), quotationInfo.toString());
+                record = new ProducerRecord<>(TEST_TOPIC, null, quotationInfo.getTradeTime(), quotationInfo.getStockCode(), quotationInfo.toString());
                 executor.submit(new KafkaProducerThread(producer, record));
 
                 if (num++ % 10 == 0)

@@ -15,7 +15,7 @@ import java.util.Random;
 public class Producer {
     //private static final Logger =
     private static final int MSG_SIZE = 100;
-    private static final String TOPIC = "stock-quotation";
+    private static final String TEST_TOPIC = "test";
     private static final String BROKER_LIST = "localhost:9092";
     private static KafkaProducer<String, String> producer = null;
 
@@ -61,7 +61,7 @@ public class Producer {
             int num = 0;
             for (int i = 0; i < MSG_SIZE; i++) {
                 quotationInfo = createStockQuotationInfo();
-                record = new ProducerRecord<>(TOPIC, null, quotationInfo.getTradeTime(), quotationInfo.getStockCode(), quotationInfo.toString());
+                record = new ProducerRecord<>(TEST_TOPIC, null, quotationInfo.getTradeTime(), quotationInfo.getStockCode(), quotationInfo.toString());
                 //producer.send(record);
                 producer.send(record, new Callback() {
                     @Override

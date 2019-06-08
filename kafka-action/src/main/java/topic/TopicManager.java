@@ -1,33 +1,26 @@
 package topic;
 
 
-import kafka.zk.AdminZkClient;
-import org.I0Itec.zkclient.ZkClient;
-import org.apache.kafka.clients.ClientUtils;
+import kafka.admin.TopicCommand;
 import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.server.policy.CreateTopicPolicy;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 public class TopicManager {
-    private static final String ZK_CONNECT = "192.168.80.129:2181";
-    private static final int SESSION_TIMEOUT = 10000;
-    private static final int CONNECT_TIMEOUT = 10000;
-    public static void createTopic(String topic, int partition, int replica, Properties props) {
-        //ZkClient zkClient = new ZkClient(ZK_CONNECT, SESSION_TIMEOUT, CONNECT_TIMEOUT);
-        AdminZkClient adminZkClient;
-        KafkaAdminClient kafkaAdminClient;
-        ClientUtils clientUtils;
 
+    public static void createTopic(String topic, int partition, int replica, Properties props) {
         AdminClient adminClient = AdminClient.create(props);
         ListTopicsResult listTopicsResult = adminClient.listTopics();
-        //adminClient.deleteTopics(Arrays.asList("stock-quotations"));
-        //adminClient.describeTopics(Arrays.asList("stock-quotation"));
+        DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(Arrays.asList("stock-quotation"));
+        DeleteTopicsResult deleteTopicsResult = adminClient.deleteTopics(Arrays.asList("stock-quotation"));
         CreateTopicsResult createTopicsResult = adminClient.createTopics(Arrays.asList(new NewTopic(topic, partition, (short)replica)));
 
         try {
             listTopicsResult.listings().get();
+            deleteTopicsResult.all().get();
             createTopicsResult.all().get();
         } catch (Exception e) {
             System.out.println("create topic failed!");
@@ -37,10 +30,27 @@ public class TopicManager {
         }
     }
 
+    public static void listTopics(Properties properties) {
+        AdminClient adminClient = AdminClient.create(properties);
+
+        ListTopicsResult listTopicsResult = adminClient.listTopics();
+        ListTopicsResult listTopicsResultWithOptions = adminClient.listTopics(new ListTopicsOptions().timeoutMs(6000));
+        try {
+            Collection<TopicListing> collections = listTopicsResult.listings().get();
+            for (TopicListing topicListing : collections) {
+                System.out.printf(topicListing.toString());
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Properties initConfig() {
         Properties props = new Properties();
-        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.80.129:9092");
-        props.put("create.topic.policy.class.name", CreateTopicPolicy.class.getName());
+        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        //props.put("create.topic.policy.class.name", CreateTopicPolicy.class.getName());
 
         return  props;
     }
@@ -49,5 +59,7 @@ public class TopicManager {
         Properties props = initConfig();
 
         createTopic("stock-quotation", 1, 1, props);
+        listTopics(props);
+
     }
 }

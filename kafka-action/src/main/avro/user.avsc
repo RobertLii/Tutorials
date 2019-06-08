@@ -4,6 +4,7 @@
     "name": "User",
     "fields": [
         {"name": "name", "type": "string"},
+        {"name": "nation", "type": "string"},
         {"name": "favorite_number",  "type": ["int", "null"]},
         {"name": "favorite_color", "type": ["string", "null"]}
     ]

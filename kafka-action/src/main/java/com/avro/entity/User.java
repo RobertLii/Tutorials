@@ -13,8 +13,8 @@ import org.apache.avro.message.SchemaStore;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class User extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 7337875612046235795L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"User\",\"namespace\":\"com.avro.entity\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"favorite_number\",\"type\":[\"int\",\"null\"]},{\"name\":\"favorite_color\",\"type\":[\"string\",\"null\"]}]}");
+  private static final long serialVersionUID = -180051219401445873L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"User\",\"namespace\":\"com.avro.entity\",\"fields\":[{\"name\":\"name\",\"type\":\"string\"},{\"name\":\"nation\",\"type\":\"string\"},{\"name\":\"favorite_number\",\"type\":[\"int\",\"null\"]},{\"name\":\"favorite_color\",\"type\":[\"string\",\"null\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -52,6 +52,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
   }
 
   @Deprecated public java.lang.CharSequence name;
+  @Deprecated public java.lang.CharSequence nation;
   @Deprecated public java.lang.Integer favorite_number;
   @Deprecated public java.lang.CharSequence favorite_color;
 
@@ -65,11 +66,13 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
   /**
    * All-args constructor.
    * @param name The new value for name
+   * @param nation The new value for nation
    * @param favorite_number The new value for favorite_number
    * @param favorite_color The new value for favorite_color
    */
-  public User(java.lang.CharSequence name, java.lang.Integer favorite_number, java.lang.CharSequence favorite_color) {
+  public User(java.lang.CharSequence name, java.lang.CharSequence nation, java.lang.Integer favorite_number, java.lang.CharSequence favorite_color) {
     this.name = name;
+    this.nation = nation;
     this.favorite_number = favorite_number;
     this.favorite_color = favorite_color;
   }
@@ -79,8 +82,9 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return name;
-    case 1: return favorite_number;
-    case 2: return favorite_color;
+    case 1: return nation;
+    case 2: return favorite_number;
+    case 3: return favorite_color;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -90,8 +94,9 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: name = (java.lang.CharSequence)value$; break;
-    case 1: favorite_number = (java.lang.Integer)value$; break;
-    case 2: favorite_color = (java.lang.CharSequence)value$; break;
+    case 1: nation = (java.lang.CharSequence)value$; break;
+    case 2: favorite_number = (java.lang.Integer)value$; break;
+    case 3: favorite_color = (java.lang.CharSequence)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -110,6 +115,22 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
    */
   public void setName(java.lang.CharSequence value) {
     this.name = value;
+  }
+
+  /**
+   * Gets the value of the 'nation' field.
+   * @return The value of the 'nation' field.
+   */
+  public java.lang.CharSequence getNation() {
+    return nation;
+  }
+
+  /**
+   * Sets the value of the 'nation' field.
+   * @param value the value to set.
+   */
+  public void setNation(java.lang.CharSequence value) {
+    this.nation = value;
   }
 
   /**
@@ -177,6 +198,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
     implements org.apache.avro.data.RecordBuilder<User> {
 
     private java.lang.CharSequence name;
+    private java.lang.CharSequence nation;
     private java.lang.Integer favorite_number;
     private java.lang.CharSequence favorite_color;
 
@@ -195,13 +217,17 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
         this.name = data().deepCopy(fields()[0].schema(), other.name);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.favorite_number)) {
-        this.favorite_number = data().deepCopy(fields()[1].schema(), other.favorite_number);
+      if (isValidValue(fields()[1], other.nation)) {
+        this.nation = data().deepCopy(fields()[1].schema(), other.nation);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.favorite_color)) {
-        this.favorite_color = data().deepCopy(fields()[2].schema(), other.favorite_color);
+      if (isValidValue(fields()[2], other.favorite_number)) {
+        this.favorite_number = data().deepCopy(fields()[2].schema(), other.favorite_number);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.favorite_color)) {
+        this.favorite_color = data().deepCopy(fields()[3].schema(), other.favorite_color);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -215,13 +241,17 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
         this.name = data().deepCopy(fields()[0].schema(), other.name);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.favorite_number)) {
-        this.favorite_number = data().deepCopy(fields()[1].schema(), other.favorite_number);
+      if (isValidValue(fields()[1], other.nation)) {
+        this.nation = data().deepCopy(fields()[1].schema(), other.nation);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.favorite_color)) {
-        this.favorite_color = data().deepCopy(fields()[2].schema(), other.favorite_color);
+      if (isValidValue(fields()[2], other.favorite_number)) {
+        this.favorite_number = data().deepCopy(fields()[2].schema(), other.favorite_number);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.favorite_color)) {
+        this.favorite_color = data().deepCopy(fields()[3].schema(), other.favorite_color);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -265,6 +295,45 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
     }
 
     /**
+      * Gets the value of the 'nation' field.
+      * @return The value.
+      */
+    public java.lang.CharSequence getNation() {
+      return nation;
+    }
+
+    /**
+      * Sets the value of the 'nation' field.
+      * @param value The value of 'nation'.
+      * @return This builder.
+      */
+    public com.avro.entity.User.Builder setNation(java.lang.CharSequence value) {
+      validate(fields()[1], value);
+      this.nation = value;
+      fieldSetFlags()[1] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'nation' field has been set.
+      * @return True if the 'nation' field has been set, false otherwise.
+      */
+    public boolean hasNation() {
+      return fieldSetFlags()[1];
+    }
+
+
+    /**
+      * Clears the value of the 'nation' field.
+      * @return This builder.
+      */
+    public com.avro.entity.User.Builder clearNation() {
+      nation = null;
+      fieldSetFlags()[1] = false;
+      return this;
+    }
+
+    /**
       * Gets the value of the 'favorite_number' field.
       * @return The value.
       */
@@ -278,9 +347,9 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.avro.entity.User.Builder setFavoriteNumber(java.lang.Integer value) {
-      validate(fields()[1], value);
+      validate(fields()[2], value);
       this.favorite_number = value;
-      fieldSetFlags()[1] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -289,7 +358,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       * @return True if the 'favorite_number' field has been set, false otherwise.
       */
     public boolean hasFavoriteNumber() {
-      return fieldSetFlags()[1];
+      return fieldSetFlags()[2];
     }
 
 
@@ -299,7 +368,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       */
     public com.avro.entity.User.Builder clearFavoriteNumber() {
       favorite_number = null;
-      fieldSetFlags()[1] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -317,9 +386,9 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       * @return This builder.
       */
     public com.avro.entity.User.Builder setFavoriteColor(java.lang.CharSequence value) {
-      validate(fields()[2], value);
+      validate(fields()[3], value);
       this.favorite_color = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -328,7 +397,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       * @return True if the 'favorite_color' field has been set, false otherwise.
       */
     public boolean hasFavoriteColor() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
 
 
@@ -338,7 +407,7 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       */
     public com.avro.entity.User.Builder clearFavoriteColor() {
       favorite_color = null;
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -348,8 +417,9 @@ public class User extends org.apache.avro.specific.SpecificRecordBase implements
       try {
         User record = new User();
         record.name = fieldSetFlags()[0] ? this.name : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.favorite_number = fieldSetFlags()[1] ? this.favorite_number : (java.lang.Integer) defaultValue(fields()[1]);
-        record.favorite_color = fieldSetFlags()[2] ? this.favorite_color : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.nation = fieldSetFlags()[1] ? this.nation : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.favorite_number = fieldSetFlags()[2] ? this.favorite_number : (java.lang.Integer) defaultValue(fields()[2]);
+        record.favorite_color = fieldSetFlags()[3] ? this.favorite_color : (java.lang.CharSequence) defaultValue(fields()[3]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

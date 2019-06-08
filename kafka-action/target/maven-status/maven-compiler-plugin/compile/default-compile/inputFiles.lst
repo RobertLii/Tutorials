@@ -1,1 +1,13 @@
-D:\GitHub\Tutorials\kafka-action\src\main\java\com\avro\example\User.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\com\avro\entity\User.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\serializer\AvroSerializer.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\partitioner\StockPartitioner.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\deserializer\AvroDeserializer.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\consumer\KafkaConsumerThread.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\producer\KafkaProducerThread.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\source_code_learning\Main.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\consumer\KafkaConsumerExecutor.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\producer\Producer.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\topic\TopicManager.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\producer\MultiThreadProducer.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\consumer\KafkaSimpleConsumer.java
+D:\GitHub\Tutorials\kafka-action\src\main\java\entity\StockQuotationInfo.java
